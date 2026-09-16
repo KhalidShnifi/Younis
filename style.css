@@ -465,16 +465,17 @@ body {
     width: 80%;
     max-width: 800px;
     left: 50%;
-    transform: translateX(-50%);
+    top: 100%;
+    transform: translate(-50%, 0);
     text-align: center;
     font-size: clamp(1.2rem, 2.5vw, 2rem);
     line-height: 1.8;
     letter-spacing: 0.02em;
-    animation: messageScroll 180s linear forwards;
+    animation: messageScroll 60s linear forwards;
 }
 
 .finalMessageText p {
-    margin: 100vh 0 100vh;
+    margin: 0;
 }
 
 @keyframes messageScroll {
@@ -483,7 +484,7 @@ body {
     }
 
     to {
-        transform: translate(-50%, -200%);
+        transform: translate(-50%, -50%);
     }
 }
 
