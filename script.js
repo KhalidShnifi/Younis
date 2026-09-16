@@ -133,27 +133,22 @@ function playVideos() {
     video1.currentTime = 0;
     video2.currentTime = 0;
 
-    video1.play()
-        .then(() => {
-            console.log("Video 1 playing");
-        })
-        .catch(error => {
-            console.error("Video 1 failed:", error);
-        });
-
     video1.onended = () => {
         video1.style.display = "none";
         video2.style.display = "block";
-
         video2.currentTime = 0;
 
-        video2.play()
-            .then(() => {
-                console.log("Video 2 playing");
-            })
-            .catch(error => {
-                console.error("Video 2 failed:", error);
-            });
+        const playVideo2 = video2.play();
+
+        if (playVideo2 !== undefined) {
+            playVideo2
+                .then(() => {
+                    console.log("Video 2 playing");
+                })
+                .catch(error => {
+                    console.error("Video 2 failed:", error);
+                });
+        }
     };
 
     video2.onended = () => {
@@ -175,6 +170,14 @@ function playVideos() {
 
         finalMessage.classList.add("show");
     };
+
+    video1.play()
+        .then(() => {
+            console.log("Video 1 playing");
+        })
+        .catch(error => {
+            console.error("Video 1 failed:", error);
+        });
 }
 
 updateCountdown();
