@@ -194,9 +194,6 @@ function scrollFinalMessage() {
     const text =
         finalMessage.querySelector(".finalMessageText");
 
-    const screenCenter =
-        window.innerHeight / 2;
-
     const textHeight =
         text.offsetHeight;
 
@@ -204,12 +201,12 @@ function scrollFinalMessage() {
         window.innerHeight;
 
     const targetY =
-        screenCenter - textHeight / 2;
+        (window.innerHeight - textHeight) / 2;
 
     const distance =
         startY - targetY;
 
-    const duration = 60000;
+    const duration = 35000;
 
     const startTime =
         performance.now();
