@@ -169,6 +169,7 @@ function playVideos() {
             document.getElementById("finalMessage");
 
         finalMessage.classList.add("show");
+        scrollFinalMessage();
     };
 
     video1.play()
@@ -186,3 +187,49 @@ setInterval(
     updateCountdown,
     1000
 );
+function scrollFinalMessage() {
+    const finalMessage =
+        document.getElementById("finalMessage");
+
+    const text =
+        finalMessage.querySelector(".finalMessageText");
+
+    const screenCenter =
+        window.innerHeight / 2;
+
+    const textHeight =
+        text.offsetHeight;
+
+    const startY =
+        window.innerHeight;
+
+    const targetY =
+        screenCenter - textHeight / 2;
+
+    const distance =
+        startY - targetY;
+
+    const duration = 60000;
+
+    const startTime =
+        performance.now();
+
+    function animate(time) {
+        const progress =
+            Math.min(
+                (time - startTime) / duration,
+                1
+            );
+
+        const currentY =
+            startY - distance * progress;
+
+        text.style.top = `${currentY}px`;
+
+        if (progress < 1) {
+            requestAnimationFrame(animate);
+        }
+    }
+
+    requestAnimationFrame(animate);
+}
