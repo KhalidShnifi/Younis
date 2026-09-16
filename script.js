@@ -19,18 +19,9 @@ const startOverlay =
 const music =
     document.getElementById("backgroundMusic");
 
-const videoStack =
-    document.getElementById("videos");
-
-const video1 =
-    document.getElementById("video1");
-
-const video2 =
-    document.getElementById("video2");
-
-
 let unlocked = false;
 let started = false;
+
 
 function updateCountdown() {
 
@@ -43,9 +34,7 @@ function updateCountdown() {
 
         countdown.textContent = "00:00:00";
 
-
         if (!unlocked) {
-
             startOverlay.style.display = "flex";
         }
 
@@ -75,10 +64,10 @@ function updateCountdown() {
             (difference / 1000) % 60
         );
 
-
     countdown.textContent =
         `${days}d ${hours}h ${minutes}m ${seconds}s`;
 }
+
 
 startOverlay.addEventListener("click", () => {
 
@@ -88,106 +77,39 @@ startOverlay.addEventListener("click", () => {
     unlocked = true;
 
     lockedScreen.style.display = "none";
-
     startOverlay.style.display = "none";
 
     message.classList.add("show");
-
     photoStack.classList.add("show");
 
     music.volume = 0.35;
-
     music.currentTime = 0;
 
     music.play()
         .then(() => {
-
-            console.log(
-                "Background music started"
-            );
-
+            console.log("Background music started");
         })
         .catch(error => {
-
-            console.error(
-                "Music failed:",
-                error
-            );
-
+            console.error("Music failed:", error);
         });
 
     setTimeout(() => {
-
-        playVideos();
-
-    }, 27400);
-
-});
-
-function playVideos() {
-    videoStack.style.display = "flex";
-
-    video1.style.display = "block";
-    video2.style.display = "none";
-
-    video1.currentTime = 0;
-    video2.currentTime = 0;
-
-    video1.onended = () => {
-        video1.style.display = "none";
-        video2.style.display = "block";
-        video2.currentTime = 0;
-
-        const playVideo2 = video2.play();
-
-        if (playVideo2 !== undefined) {
-            playVideo2
-                .then(() => {
-                    console.log("Video 2 playing");
-                })
-                .catch(error => {
-                    console.error("Video 2 failed:", error);
-                });
-        }
-    };
-
-    video2.onended = () => {
-        video2.style.display = "none";
-        videoStack.style.display = "none";
-
-        const fadeOut = setInterval(() => {
-            if (music.volume > 0.01) {
-                music.volume -= 0.01;
-            } else {
-                music.volume = 0;
-                music.pause();
-                clearInterval(fadeOut);
-            }
-        }, 50);
 
         const finalMessage =
             document.getElementById("finalMessage");
 
         finalMessage.classList.add("show");
-        scrollFinalMessage();
-    };
 
-    video1.play()
-        .then(() => {
-            console.log("Video 1 playing");
-        })
-        .catch(error => {
-            console.error("Video 1 failed:", error);
-        });
-}
+        setTimeout(() => {
+            scrollFinalMessage();
+        }, 1000);
 
-updateCountdown();
+    }, 27400);
+});
 
-setInterval(
-    updateCountdown,
-    1000
-);
+
 function scrollFinalMessage() {
+
     const finalMessage =
         document.getElementById("finalMessage");
 
@@ -211,7 +133,9 @@ function scrollFinalMessage() {
     const startTime =
         performance.now();
 
+
     function animate(time) {
+
         const progress =
             Math.min(
                 (time - startTime) / duration,
@@ -221,12 +145,47 @@ function scrollFinalMessage() {
         const currentY =
             startY - distance * progress;
 
-        text.style.top = `${currentY}px`;
+        text.style.top =
+            `${currentY}px`;
 
         if (progress < 1) {
+
             requestAnimationFrame(animate);
+
+        } else {
+
+            fadeOutMusic();
         }
     }
 
     requestAnimationFrame(animate);
 }
+
+
+function fadeOutMusic() {
+
+    const fadeOut =
+        setInterval(() => {
+
+            if (music.volume > 0.01) {
+
+                music.volume -= 0.005;
+
+            } else {
+
+                music.volume = 0;
+                music.pause();
+
+                clearInterval(fadeOut);
+            }
+
+        }, 50);
+}
+
+
+updateCountdown();
+
+setInterval(
+    updateCountdown,
+    1000
+);
