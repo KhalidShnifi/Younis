@@ -152,36 +152,19 @@ function playVideos() {
 
         });
 
-    video1.onended = () => {
-
-        video1.style.display = "none";
-
-        video2.style.display = "block";
-
-        video2.currentTime = 0;
-
-
-        video2.play()
-            .then(() => {
-
-                console.log(
-                    "Video 2 playing"
-                );
-
-            })
-            .catch(error => {
-
-                console.error(
-                    "Video 2 failed:",
-                    error
-                );
-
-            });
-
-    };
     video2.onended = () => {
     video2.style.display = "none";
     videoStack.style.display = "none";
+
+    const fadeOut = setInterval(() => {
+        if (music.volume > 0.01) {
+            music.volume -= 0.01;
+        } else {
+            music.volume = 0;
+            music.pause();
+            clearInterval(fadeOut);
+        }
+    }, 50);
 
     const finalMessage =
         document.getElementById("finalMessage");
