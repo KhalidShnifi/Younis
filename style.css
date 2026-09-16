@@ -465,27 +465,16 @@ body {
     width: 80%;
     max-width: 800px;
     left: 50%;
-    top: 100%;
-    transform: translate(-50%, 0);
+    top: 100vh;
+    transform: translateX(-50%);
     text-align: center;
     font-size: clamp(1.2rem, 2.5vw, 2rem);
     line-height: 1.8;
     letter-spacing: 0.02em;
-    animation: messageScroll 60s linear forwards;
 }
 
 .finalMessageText p {
     margin: 0;
-}
-
-@keyframes messageScroll {
-    from {
-        transform: translate(-50%, 0);
-    }
-
-    to {
-        transform: translate(-50%, -50%);
-    }
 }
 
 @media (max-width: 600px) {
@@ -493,16 +482,5 @@ body {
         width: 85%;
         font-size: 1.1rem;
         line-height: 1.7;
-        animation: messageScrollMobile 40s linear forwards;
-    }
-
-    @keyframes messageScrollMobile {
-        from {
-            transform: translate(-50%, 0);
-        }
-
-        to {
-            transform: translate(-50%, -50%);
-        }
     }
 }
