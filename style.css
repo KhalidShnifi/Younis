@@ -493,7 +493,7 @@ body {
         width: 85%;
         font-size: 1.1rem;
         line-height: 1.7;
-        animation: messageScrollMobile 60s linear forwards;
+        animation: messageScrollMobile 40s linear forwards;
     }
 
     @keyframes messageScrollMobile {
