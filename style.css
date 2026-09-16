@@ -306,25 +306,6 @@ body {
     }
 }
 
-.video-stack {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 10;
-    background: #080808;
-    align-items: center;
-    justify-content: center;
-}
-
-.video-stack video {
-    display: none;
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
 @media (max-width: 600px) {
     .photo-stack img {
         width: 120px;
