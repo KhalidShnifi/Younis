@@ -13,9 +13,13 @@ const music =
 let started = false;
 
 
-startOverlay.addEventListener("click", () => {
+function startExperience(event) {
 
     if (started) return;
+
+    if (event) {
+        event.preventDefault();
+    }
 
     started = true;
 
@@ -47,6 +51,12 @@ startOverlay.addEventListener("click", () => {
         }, 1000);
 
     }, 27400);
+}
+
+
+startOverlay.addEventListener("click", startExperience);
+startOverlay.addEventListener("touchstart", startExperience, {
+    passive: false
 });
 
 
