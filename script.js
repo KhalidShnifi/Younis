@@ -1,3 +1,12 @@
+const unlockDate =
+    new Date("2026-09-11T00:00:00+03:00").getTime();
+
+const countdown =
+    document.getElementById("countdown");
+
+const lockedScreen =
+    document.getElementById("lockedScreen");
+
 const message =
     document.getElementById("message");
 
@@ -10,17 +19,64 @@ const startOverlay =
 const music =
     document.getElementById("backgroundMusic");
 
+let unlocked = false;
 let started = false;
 
 
-function startExperience(event) {
+function updateCountdown() {
+
+    const now = Date.now();
+
+    const difference =
+        unlockDate - now;
+
+    if (difference <= 0) {
+
+        countdown.textContent = "00:00:00";
+
+        if (!unlocked) {
+            startOverlay.style.display = "flex";
+        }
+
+        return;
+    }
+
+    const days =
+        Math.floor(
+            difference /
+            (1000 * 60 * 60 * 24)
+        );
+
+    const hours =
+        Math.floor(
+            (difference /
+            (1000 * 60 * 60)) % 24
+        );
+
+    const minutes =
+        Math.floor(
+            (difference /
+            (1000 * 60)) % 60
+        );
+
+    const seconds =
+        Math.floor(
+            (difference / 1000) % 60
+        );
+
+    countdown.textContent =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+
+startOverlay.addEventListener("click", () => {
 
     if (started) return;
 
-    event.preventDefault();
-
     started = true;
+    unlocked = true;
 
+    lockedScreen.style.display = "none";
     startOverlay.style.display = "none";
 
     message.classList.add("show");
@@ -29,17 +85,13 @@ function startExperience(event) {
     music.volume = 0.35;
     music.currentTime = 0;
 
-    const playPromise = music.play();
-
-    if (playPromise !== undefined) {
-        playPromise
-            .then(() => {
-                console.log("Background music started");
-            })
-            .catch(error => {
-                console.error("Music failed:", error);
-            });
-    }
+    music.play()
+        .then(() => {
+            console.log("Background music started");
+        })
+        .catch(error => {
+            console.error("Music failed:", error);
+        });
 
     setTimeout(() => {
 
@@ -53,13 +105,7 @@ function startExperience(event) {
         }, 1000);
 
     }, 27400);
-}
-
-
-startOverlay.addEventListener(
-    "pointerdown",
-    startExperience
-);
+});
 
 
 function scrollFinalMessage() {
@@ -135,3 +181,11 @@ function fadeOutMusic() {
 
         }, 50);
 }
+
+
+updateCountdown();
+
+setInterval(
+    updateCountdown,
+    1000
+);
