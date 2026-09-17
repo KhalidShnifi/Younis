@@ -17,9 +17,7 @@ function startExperience(event) {
 
     if (started) return;
 
-    if (event) {
-        event.preventDefault();
-    }
+    event.preventDefault();
 
     started = true;
 
@@ -31,13 +29,17 @@ function startExperience(event) {
     music.volume = 0.35;
     music.currentTime = 0;
 
-    music.play()
-        .then(() => {
-            console.log("Background music started");
-        })
-        .catch(error => {
-            console.error("Music failed:", error);
-        });
+    const playPromise = music.play();
+
+    if (playPromise !== undefined) {
+        playPromise
+            .then(() => {
+                console.log("Background music started");
+            })
+            .catch(error => {
+                console.error("Music failed:", error);
+            });
+    }
 
     setTimeout(() => {
 
@@ -54,10 +56,10 @@ function startExperience(event) {
 }
 
 
-startOverlay.addEventListener("click", startExperience);
-startOverlay.addEventListener("touchstart", startExperience, {
-    passive: false
-});
+startOverlay.addEventListener(
+    "pointerdown",
+    startExperience
+);
 
 
 function scrollFinalMessage() {
