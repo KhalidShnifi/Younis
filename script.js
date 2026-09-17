@@ -1,12 +1,3 @@
-const unlockDate =
-    new Date("2026-09-11T00:00:00+03:00").getTime();
-
-const countdown =
-    document.getElementById("countdown");
-
-const lockedScreen =
-    document.getElementById("lockedScreen");
-
 const message =
     document.getElementById("message");
 
@@ -19,16 +10,15 @@ const startOverlay =
 const music =
     document.getElementById("backgroundMusic");
 
-let unlocked = true;
 let started = false;
+
+
 startOverlay.addEventListener("click", () => {
 
     if (started) return;
 
     started = true;
-    unlocked = true;
 
-    lockedScreen.style.display = "none";
     startOverlay.style.display = "none";
 
     message.classList.add("show");
@@ -133,11 +123,3 @@ function fadeOutMusic() {
 
         }, 50);
 }
-
-
-updateCountdown();
-
-setInterval(
-    updateCountdown,
-    1000
-);
