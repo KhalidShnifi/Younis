@@ -50,7 +50,7 @@ body {
     width: 100vw;
     height: 100vh;
     z-index: 9999;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     background: #080808;
