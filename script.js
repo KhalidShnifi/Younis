@@ -19,56 +19,8 @@ const startOverlay =
 const music =
     document.getElementById("backgroundMusic");
 
-let unlocked = false;
+let unlocked = true;
 let started = false;
-
-
-function updateCountdown() {
-
-    const now = Date.now();
-
-    const difference =
-        unlockDate - now;
-
-    if (difference <= 0) {
-
-        countdown.textContent = "00:00:00";
-
-        if (!unlocked) {
-            startOverlay.style.display = "flex";
-        }
-
-        return;
-    }
-
-    const days =
-        Math.floor(
-            difference /
-            (1000 * 60 * 60 * 24)
-        );
-
-    const hours =
-        Math.floor(
-            (difference /
-            (1000 * 60 * 60)) % 24
-        );
-
-    const minutes =
-        Math.floor(
-            (difference /
-            (1000 * 60)) % 60
-        );
-
-    const seconds =
-        Math.floor(
-            (difference / 1000) % 60
-        );
-
-    countdown.textContent =
-        `${days}d ${hours}h ${minutes}m ${seconds}s`;
-}
-
-
 startOverlay.addEventListener("click", () => {
 
     if (started) return;
